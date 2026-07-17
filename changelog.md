@@ -1,5 +1,18 @@
 # Değişiklik Günlüğü
 
+## v0.3.0 — Sepet motorunun geçmiş testi (2026-07-17)
+
+### Added
+- `analyzer/backtest.py`: momentum sepetinin 2006'dan bugüne aylık geriye dönük testi — her ay yeniden sıralama, en güçlü %20'lik dilimi tutma, maliyet düşme (%0.4, BIST AI ile aynı), eşit ağırlıklı BIST ortalamasıyla kıyaslama. Look-ahead yok.
+- Panelde yeni "Geçmiş Test" bölümü: sepet vs. benchmark kümülatif büyüme grafiği, aylık kazanma oranı, ortalama/medyan fazla getiri, ve teknik detaylar (t-istatistiği vb.) için ayrı bir açılır bölüm.
+
+### Fixed — önemli veri hatası
+- İlk çalıştırmada 2001'den itibaren test edilince bulgu çok daha güçlü çıkıyordu, ama araştırınca sebebi ortaya çıktı: **2005 başındaki Yeni Türk Lirası geçişi** (1.000.000 eski TL = 1 yeni TL) civarında yfinance verisinde gerçek olmayan bir sıçrama var (THYAO'da tek günde +%98.113 — imkansız). Bu, o dönemi içeren herhangi bir geriye dönük testi anlamsız şekilde şişiriyor. Test artık 2006-01-01'den başlıyor.
+
+### Bulgu (dürüst değerlendirme)
+- Hata düzeltildikten sonra: 235 ay, kazanma oranı %54, aylık ortalama fark +%0.28, **t-istatistiği ≈1.0** — projenin kendi koyduğu "ciddiye alınır" eşiği olan ≥2'nin altında. Yani bu ilk bulgu göründüğünden daha zayıf çıktı; BIST AI'daki orijinal t=+2.50 bulgusunun bir kısmı muhtemelen bu aynı veri hatasından kaynaklanıyordu (o proje bu düzeltmeyi hiç yapmamıştı).
+- Sonuç: sepet motoru şu haliyle "kesin işe yarıyor" diyebileceğimiz bir eşiği henüz geçmiyor. Bir sonraki adımlarda (farklı vade/parametre denemeleri, kalite/temel katmanının eklenmesi vb.) bu tekrar değerlendirilecek.
+
 ## v0.2.0 — Sepet motorunun ilk sürümü (2026-07-17)
 
 ### Added
