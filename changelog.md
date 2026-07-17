@@ -1,5 +1,15 @@
 # Değişiklik Günlüğü
 
+## v0.4.0 — Seçilebilir BIST evreni (30/100/500/TÜM) (2026-07-17)
+
+### Added
+- `analyzer/universe.py`: artık statik bir liste yerine Borsa İstanbul'un resmi endeks bileşen verisini (`borsapy` kütüphanesi üzerinden) canlı çekiyor. Panelde BIST 30 / BIST 100 / BIST 500 / BIST TÜM arasında seçim yapılabiliyor; sepet motoru ve geçmiş test seçilen evrene göre çalışıyor.
+- `analyzer/universe_seed.json`: yedek veri dosyası — canlı kaynak başarısız olursa buraya düşülüyor (aşağıya bak, nedeni önemli).
+- Bonus bulgu: Borsa İstanbul'un endeks verisinde resmi bir "BIST Halka Arz" (XHARZ, 55 hisse) endeksi de var — ileride halka arz menüsü özelliği için doğrudan kullanılabilir.
+
+### Fixed — veri kaynağı güvenilirliği
+- Borsa İstanbul'un endeks bileşen CSV kaynağı test edilirken tutarsız davrandı: aynı istek art arda denendiğinde yaklaşık %25 başarı oranıyla çalıştı, geri kalanında bağlantı sıfırlandı (muhtemelen bot/otomatik istek koruması). `get_universe()` artık başarısız olursa birkaç kez tekrar dener, hâlâ olmazsa depoyla gelen son bilinen iyi listeye (`universe_seed.json`, 2026-07-17 tarihli) düşer ve panelde bunu açıkça belirtir. Canlı deploy ortamı (Streamlit Cloud) da bir "veri merkezi" IP'si kullandığından aynı sorun orada da çıkabilir — bu yüzden yedek mekanizması olmadan bu özellik güvenilir sayılmazdı.
+
 ## v0.3.0 — Sepet motorunun geçmiş testi (2026-07-17)
 
 ### Added

@@ -3,17 +3,44 @@ import streamlit as st
 
 from analyzer.backtest import run_momentum_backtest
 from analyzer.basket import compute_momentum_table
-from analyzer.universe import BIST_UNIVERSE
+from analyzer.universe import UNIVERSE_OPTIONS, get_universe
 
 st.set_page_config(page_title="Bistogram", page_icon="📊")
 
 st.title("Bistogram")
 st.caption("BIST için sıfırdan, kendi yöntemlerimizle geliştirilen analiz sistemi")
 
+tier = st.selectbox("Hisse evreni", list(UNIVERSE_OPTIONS.keys()), index=1)
+st.caption(
+    "BIST 500 ve BIST TÜM daha geniş evren oldukları için ilk yüklemede "
+    "yaklaşık 1 dakika sürebilir (sonraki ziyaretlerde önbellekten hızlı gelir)."
+)
+
+
+@st.cache_data(ttl=6 * 60 * 60, show_spinner="BIST listesi alınıyor...")
+def get_universe_cached(tier: str):
+    return get_universe(tier)
+
+
+universe, is_live, seed_date = get_universe_cached(tier)
+
+if not universe:
+    st.error(
+        "BIST hisse listesi hem canlı kaynaktan hem yedekten alınamadı. "
+        "Lütfen daha sonra tekrar dene."
+    )
+    st.stop()
+if not is_live:
+    st.info(
+        f"Not: Borsa İstanbul'un canlı kaynağına şu an ulaşılamadı (zaman zaman "
+        f"oluyor), {seed_date} tarihli yedek listeye düşüldü. Hisse sayısı "
+        "büyük ölçüde güncel olsa da birkaç değişiklik kaçırılmış olabilir."
+    )
+
 st.header("Sepet Motoru — Momentum Sıralaması")
 st.write(
-    "Aşağıdaki tablo, BIST hisselerini son 1 yıllık performansına göre sıralıyor "
-    "(en son 1 ay hariç tutuluyor — kısa vadeli gürültüyü azaltmak için). "
+    f"Aşağıdaki tablo, {tier} evrenindeki hisseleri son 1 yıllık performansına göre "
+    "sıralıyor (en son 1 ay hariç tutuluyor — kısa vadeli gürültüyü azaltmak için). "
     "En üstteki hisseler bu ölçüye göre son dönemde en güçlü performans gösterenler."
 )
 st.warning(
@@ -23,11 +50,11 @@ st.warning(
 
 
 @st.cache_data(ttl=6 * 60 * 60, show_spinner="BIST verileri çekiliyor...")
-def get_momentum_table():
-    return compute_momentum_table(BIST_UNIVERSE)
+def get_momentum_table(universe: list[str]):
+    return compute_momentum_table(universe)
 
 
-momentum_table = get_momentum_table()
+momentum_table = get_momentum_table(universe)
 
 if momentum_table.empty:
     st.error("Veri çekilemedi, lütfen daha sonra tekrar deneyin.")
@@ -49,8 +76,8 @@ else:
 st.divider()
 st.header("Geçmiş Test (2006 — bugün)")
 st.write(
-    "Bu sepet mantığını geçmişe uyguladık: 2006'dan bugüne, her ay yeniden "
-    "sıralayıp en güçlü %20'lik dilimi tutmuş olsaydık ne olurdu? "
+    f"Bu sepet mantığını {tier} evreninde geçmişe uyguladık: 2006'dan bugüne, "
+    "her ay yeniden sıralayıp en güçlü %20'lik dilimi tutmuş olsaydık ne olurdu? "
     "(2005 öncesi, Yeni Türk Lirası geçiş dönemi civarında veride gerçek "
     "olmayan bir fiyat sıçraması bulundu — bu yüzden test 2006'dan başlıyor, "
     "aşağıdaki notta detayı var.)"
@@ -58,11 +85,11 @@ st.write(
 
 
 @st.cache_data(ttl=24 * 60 * 60, show_spinner="Geçmiş test çalıştırılıyor...")
-def get_backtest():
-    return run_momentum_backtest(BIST_UNIVERSE)
+def get_backtest(universe: list[str]):
+    return run_momentum_backtest(universe)
 
 
-monthly, summary = get_backtest()
+monthly, summary = get_backtest(universe)
 
 if not summary:
     st.error("Geçmiş test için yeterli veri yok.")
