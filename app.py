@@ -3,12 +3,46 @@ import streamlit as st
 
 from analyzer.backtest import run_momentum_backtest
 from analyzer.basket import compute_momentum_table
+from analyzer.portfolio import TRACKED_TIER, load_state
 from analyzer.universe import UNIVERSE_OPTIONS, get_universe
 
 st.set_page_config(page_title="Bistogram", page_icon="📊")
 
 st.title("Bistogram")
 st.caption("BIST için sıfırdan, kendi yöntemlerimizle geliştirilen analiz sistemi")
+
+st.header("Takip Edilen Sepet")
+st.write(
+    f"Bu, sürekli takip edilen tek resmi sepet — {TRACKED_TIER} evreninde, ayda bir "
+    "otomatik olarak yeniden hesaplanıyor (GitHub Actions ile). Aşağıdaki 'Sepet "
+    "Motoru' bölümü farklı evrenleri anlık keşfetmek için, ama zaman içindeki "
+    "değişimi (sat/ekle/tut) sadece burası takip ediyor."
+)
+
+portfolio_state = load_state()
+
+if not portfolio_state["basket"]:
+    st.info("Henüz ilk otomatik güncelleme çalışmadı — burada gösterilecek bir şey yok.")
+else:
+    st.caption(f"Son güncelleme: {portfolio_state['last_rebalanced']}")
+    last_change = portfolio_state["history"][-1]
+
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Sepette tutulan", len(portfolio_state["basket"]))
+    col2.metric("Bu ay eklenen", len(last_change["ekle"]))
+    col3.metric("Bu ay satılan", len(last_change["sat"]))
+
+    if last_change["ekle"]:
+        st.success("Ekle: " + ", ".join(last_change["ekle"]))
+    if last_change["sat"]:
+        st.error("Sat: " + ", ".join(last_change["sat"]))
+    if last_change["tut"]:
+        st.info("Tut: " + ", ".join(last_change["tut"]))
+
+    with st.expander("Güncel tam sepet listesi"):
+        st.write(", ".join(sorted(portfolio_state["basket"])))
+
+st.divider()
 
 tier = st.selectbox("Hisse evreni", list(UNIVERSE_OPTIONS.keys()), index=1)
 st.caption(

@@ -1,0 +1,54 @@
+{
+  "basket": [
+    "KTLEV",
+    "ODINE",
+    "IEYHO",
+    "DSTKF",
+    "CVKMD",
+    "ASTOR",
+    "CWENE",
+    "EUPWR",
+    "BSOKE",
+    "AKSEN",
+    "ASELS",
+    "MAGEN",
+    "SKBNK",
+    "SARKY",
+    "TRALT",
+    "GUBRF",
+    "RALYH",
+    "HALKB",
+    "BRSAN",
+    "ECILC"
+  ],
+  "last_rebalanced": "2026-07-18",
+  "history": [
+    {
+      "date": "2026-07-18",
+      "tut": [],
+      "ekle": [
+        "AKSEN",
+        "ASELS",
+        "ASTOR",
+        "BRSAN",
+        "BSOKE",
+        "CVKMD",
+        "CWENE",
+        "DSTKF",
+        "ECILC",
+        "EUPWR",
+        "GUBRF",
+        "HALKB",
+        "IEYHO",
+        "KTLEV",
+        "MAGEN",
+        "ODINE",
+        "RALYH",
+        "SARKY",
+        "SKBNK",
+        "TRALT"
+      ],
+      "sat": []
+    }
+  ]
+}

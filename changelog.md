@@ -1,5 +1,17 @@
 # Değişiklik Günlüğü
 
+## v0.5.0 — Sürekli güncellenen sepet: sat/ekle/tut (2026-07-18)
+
+### Added
+- `analyzer/portfolio.py`: sepet durumunu (`data/basket_state.json`) kalıcı olarak tutan ve her güncellemede öncekiyle kıyaslayıp sat/ekle/tut listesi çıkaran mantık. BIST 100 evreninde, en güçlü %20'lik dilim takip ediliyor (geçmiş testle aynı parametre).
+- `scripts/rebalance.py`: sepeti yeniden hesaplayıp durumu güncelleyen komut satırı script'i.
+- `.github/workflows/rebalance.yml`: bu script'i ayda bir (her ayın 1'i) otomatik çalıştırıp sonucu depoya commit'leyen GitHub Actions iş akışı — elle de `workflow_dispatch` ile tetiklenebilir.
+- Panelde yeni "Takip Edilen Sepet" bölümü: güncel sepet, son güncelleme tarihi, ve o ayki sat/ekle/tut listesi.
+- İlk çalıştırma yapıldı (2026-07-18): 20 hisselik ilk sepet kuruldu (hepsi "ekle" — henüz kıyaslanacak önceki bir sepet yoktu, bu beklenen bir durum).
+
+### Not
+- Kalıcılık git deposu üzerinden sağlanıyor (basket_state.json her ay commit'leniyor) — ayrı bir veritabanı kurulmadı, bu ölçekte gereksiz olurdu.
+
 ## v0.4.0 — Seçilebilir BIST evreni (30/100/500/TÜM) (2026-07-17)
 
 ### Added
