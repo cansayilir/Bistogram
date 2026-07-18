@@ -36,8 +36,16 @@ def _momentum_scores(universe: list[str]) -> pd.DataFrame:
 
 
 def _profit_trend_score(symbol: str) -> float:
-    """Son yıllardaki net kâr sürekli büyüyorsa tam puan, sürekli düşüyorsa
-    sıfır, karışıksa nötr."""
+    """Son yılların ilk yarısındaki ortalama net kâra kıyasla ikinci
+    yarısındaki ortalama net kâr belirgin şekilde arttıysa tam puan, belirgin
+    şekilde azaldıysa sıfır, aksi halde nötr.
+
+    NOT: Önceki sürüm her yılın ÖNCEKİNDEN kesinlikle yüksek/düşük olmasını
+    şart koşuyordu (katı monoton artış/azalış). Bu, elimizde sadece ~4 yıllık
+    veri varken tek bir dalgalı yıl yüzünden temelde sağlam bir şirketi
+    "karışık" (nötr) kategoriye düşürecek kadar kırılgandı. Ortalama
+    karşılaştırması tek yıllık gürültüye karşı daha dayanıklı.
+    """
     try:
         income = bp.Ticker(symbol).income_stmt
         net_income = income.loc["DÖNEM KARI (ZARARI)"]
@@ -45,10 +53,17 @@ def _profit_trend_score(symbol: str) -> float:
         values = [net_income[y] for y in years]
         if len(values) < 2:
             return 10.0
-        diffs = [b - a for a, b in zip(values, values[1:])]
-        if all(d > 0 for d in diffs):
+
+        mid = len(values) // 2
+        early_avg = np.mean(values[:mid]) if mid > 0 else values[0]
+        late_avg = np.mean(values[mid:])
+
+        if early_avg == 0:
+            return 10.0
+        change_pct = (late_avg - early_avg) / abs(early_avg)
+        if change_pct > 0.10:
             return 20.0
-        if all(d < 0 for d in diffs):
+        if change_pct < -0.10:
             return 0.0
         return 10.0
     except Exception:

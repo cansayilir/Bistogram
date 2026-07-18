@@ -338,5 +338,29 @@ if watchlist:
         )
 
 if ai_state["closed"]:
-    with st.expander(f"Kapanan İşlemler ({len(ai_state['closed'])})"):
-        st.dataframe(pd.DataFrame(ai_state["closed"]))
+    closed_df = pd.DataFrame(ai_state["closed"])
+    st.subheader(f"Kapanan İşlemler — Performans ({len(closed_df)} işlem)")
+
+    win_rate = (closed_df["getiri_pct"] > 0).mean() * 100
+    avg_return = closed_df["getiri_pct"].mean()
+    with_benchmark = closed_df["bist100_getiri_pct"].notna()
+    avg_excess = (
+        (closed_df.loc[with_benchmark, "getiri_pct"] - closed_df.loc[with_benchmark, "bist100_getiri_pct"]).mean()
+        if with_benchmark.any()
+        else None
+    )
+
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Kazanma Oranı", f"%{win_rate:.0f}")
+    col2.metric("Ortalama Getiri", f"%{avg_return:.1f}")
+    col3.metric(
+        "BIST100'e Göre Fark",
+        f"%{avg_excess:.1f}" if avg_excess is not None else "—",
+    )
+    st.caption(
+        "Az sayıda işlemle bu rakamlar henüz bir şey kanıtlamaz — zamanla işlem "
+        "sayısı arttıkça anlamlı hale gelir."
+    )
+
+    with st.expander("Tüm kapanan işlemler"):
+        st.dataframe(closed_df)

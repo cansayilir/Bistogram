@@ -1,5 +1,17 @@
 # Değişiklik Günlüğü
 
+## v0.13.0 — AI Sepeti: sanal test için sağlamlaştırma (2026-07-18)
+
+### Added
+- Kapanan işlemler artık aynı dönemdeki **BIST100 endeksiyle (XU100)** kıyaslanıyor — pozisyon açılırken ve kapanırken endeks seviyesi kaydediliyor, böylece "işlem kârlı mıydı" değil "BIST'i geçti mi" sorusuna cevap veriliyor (projenin geri kalanıyla aynı disiplin).
+- Panelde "Kapanan İşlemler — Performans" özeti: kazanma oranı, ortalama getiri, BIST100'e göre fark. Az işlemle bunun henüz bir şey kanıtlamayacağı açıkça belirtiliyor.
+
+### Fixed
+- `_profit_trend_score`: eskiden her yılın bir öncekinden kesinlikle yüksek/düşük olmasını şart koşuyordu (katı monoton artış/azalış) — elimizde sadece ~4 yıllık veri varken bu, tek dalgalı bir yıl yüzünden sağlam bir şirketi "nötr" kategoriye düşürecek kadar kırılgandı. Artık yılların ilk yarısı ortalaması ile ikinci yarısı ortalaması kıyaslanıyor — tek yıllık gürültüye karşı daha dayanıklı.
+
+### Not
+- Kullanıcı ile netleşen çerçeve: temel+haber bileşenleri geriye dönük test edilemediği için, bundan sonra sistem gerçek parayla değil bu sanal (paper trading) ortamda, zaman içinde biriken gerçek sonuçlarla değerlendirilecek.
+
 ## v0.12.0 — AI Sepeti: trend bileşeni test edildi, kaldırıldı (2026-07-18)
 
 ### Added

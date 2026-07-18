@@ -3,11 +3,23 @@ from datetime import date
 from pathlib import Path
 
 import pandas as pd
+import yfinance as yf
 
 STATE_PATH = Path(__file__).parent.parent / "data" / "ai_basket_state.json"
 
 MAX_POSITIONS = 10
 CAPITAL_PER_POSITION_PCT = 100.0 / MAX_POSITIONS
+BENCHMARK_INDEX = "XU100.IS"
+
+
+def _current_index_level() -> float | None:
+    """Kapanan işlemleri adil bir şekilde kıyaslamak için BIST100 endeks
+    seviyesi (pozisyon açılırken ve kapanırken)."""
+    try:
+        data = yf.download(BENCHMARK_INDEX, period="5d", progress=False)["Close"]
+        return float(data[BENCHMARK_INDEX].dropna().iloc[-1])
+    except Exception:
+        return None
 
 
 def load_state() -> dict:
@@ -49,6 +61,7 @@ def update_ai_basket(scores_df: pd.DataFrame) -> dict:
     watchlist = state["watchlist"]
     closed = state["closed"]
     today = date.today().isoformat()
+    index_level = _current_index_level()
 
     scores_by_symbol = {row["Hisse"]: row for _, row in scores_df.iterrows()}
 
@@ -61,6 +74,12 @@ def update_ai_basket(scores_df: pd.DataFrame) -> dict:
         current_price = current_row["Güncel Fiyat"]
         if current_price >= position["hedef_satis_fiyati"]:
             realized_return = (current_price / position["giris_fiyati"] - 1) * 100
+            entry_index = position.get("giris_endeks_seviyesi")
+            index_return = (
+                (index_level / entry_index - 1) * 100
+                if entry_index and index_level
+                else None
+            )
             closed.append({
                 "hisse": symbol,
                 "giris_tarihi": position["giris_tarihi"],
@@ -68,6 +87,7 @@ def update_ai_basket(scores_df: pd.DataFrame) -> dict:
                 "cikis_fiyati": current_price,
                 "cikis_tarihi": today,
                 "getiri_pct": realized_return,
+                "bist100_getiri_pct": index_return,
                 "gerekce": position["gerekce"],
             })
             del active[symbol]
@@ -89,6 +109,7 @@ def update_ai_basket(scores_df: pd.DataFrame) -> dict:
             active[symbol] = {
                 "giris_tarihi": today,
                 "giris_fiyati": current_price,
+                "giris_endeks_seviyesi": index_level,
                 "hedef_satis_fiyati": watch_item["hedef_satis_fiyati"],
                 "tahmini_vade": watch_item["tahmini_vade"],
                 "gerekce": watch_item["gerekce"],
