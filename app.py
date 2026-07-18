@@ -269,15 +269,18 @@ st.divider()
 st.header("AI Sepeti (Deneysel)")
 st.write(
     "Momentum sepetinden farklı, ikinci bir sistem: her BIST 100 hissesini "
-    "teknik (momentum + trend), temel (kâr trendi + değerleme) ve haber (KAP "
-    "kırmızı bayrakları) açısından 100 üzerinden puanlıyor, buna göre bir hedef "
-    "alım fiyatı belirliyor. Fiyat bu hedefe düşünce sepete giriyor, hedef satış "
-    "fiyatına ulaşınca çıkıp sonucu kaydediyor. Günde bir otomatik güncelleniyor."
+    "momentum (40), kâr trendi (20), değerleme (20) ve haber/KAP temizliği (20) "
+    "açısından 100 üzerinden puanlıyor, buna göre bir hedef alım fiyatı "
+    "belirliyor. Fiyat bu hedefe düşünce sepete giriyor, hedef satış fiyatına "
+    "ulaşınca çıkıp sonucu kaydediyor. Günde bir otomatik güncelleniyor."
 )
 st.warning(
-    "DÜRÜST UYARI: Bu puanlama mantıklı bir çerçeve olarak tasarlandı ama "
-    "momentum sepeti gibi henüz geçmiş veriyle test edilmedi — kanıtlanmış "
-    "değil, deneysel olarak izleyin."
+    "DÜRÜST UYARI: Momentum bileşeni 2006-2026 verisiyle test edildi (zayıf "
+    "ama pozitif bir sinyal). İlk denemede eklenen bir 'trend' bileşeni "
+    "(200 günlük ortalamaya yakınlık) test edilince momentumu güçlendirmek "
+    "yerine anlamlı şekilde kötüleştirdiği görüldü ve kaldırıldı. Kâr trendi, "
+    "değerleme ve haber bileşenleri ise henüz geçmiş veriyle test edilemedi "
+    "(tarihsel veri kaynağımız yok) — sadece ileriye dönük izleniyor."
 )
 
 ai_state = load_ai_basket_state()

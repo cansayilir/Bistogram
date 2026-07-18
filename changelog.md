@@ -1,5 +1,16 @@
 # Değişiklik Günlüğü
 
+## v0.12.0 — AI Sepeti: trend bileşeni test edildi, kaldırıldı (2026-07-18)
+
+### Added
+- `analyzer/scoring_backtest.py`: AI Sepeti'nin fiyat-bazlı bileşenlerini (momentum + trend/MA200) 2006-2026 verisiyle geriye dönük test eden modül. Temel + haber bileşenleri için tarihsel (o anda bilinen) veri kaynağı olmadığından bunlar dışarıda tutuldu — dahil etmek look-ahead hatası yaratırdı.
+
+### Fixed — önemli bulgu
+- Geriye dönük test sonucu: **sadece momentum** t=+0.95 (önceki bulgularla tutarlı, kod doğrulandı) ama **momentum + trend birlikte** t=**-2.37** — yani trend bileşeni eklenince sonuç BIST'ten anlamlı şekilde daha kötü çıktı, ve bu üç alt dönemde de (2007-2018, 2019-2022, 2023-bugün) tutarlıydı.
+- Sebep: güçlü momentumlu hisseler tanım gereği 200 günlük ortalamalarının epey üzerinde olur, ama trend puanı formülü "ortalamaya yakın" olanı ödüllendirip "uzak" olanı cezalandırıyordu — yani tam da işe yarayan sinyali (momentum) sistematik olarak zayıflatıyordu.
+- **Trend bileşeni kaldırıldı.** `analyzer/scoring.py`'de momentum tek başına 40 puana çıkarıldı (eskiden momentum 20 + trend 20). Toplam puan hâlâ 100: Momentum (40) + Kâr Trendi (20) + Değerleme (20) + Haber (20).
+- Formül değiştiği için izleme listesi sıfırlanıp yeni ağırlıklarla yeniden tarandı (43 hisse, 0 aktif pozisyon — beklenen).
+
 ## v0.11.0 — AI Sepeti: puanlama tabanlı ikinci sepet sistemi (2026-07-18)
 
 ### Added

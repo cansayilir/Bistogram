@@ -25,9 +25,9 @@ def save_state(state: dict) -> None:
 
 def _rationale(row: pd.Series) -> str:
     return (
-        f"Momentum {row['Momentum Puan']:.0f}, Trend {row['Trend Puan']:.0f}, "
-        f"Kâr Trendi {row['Kâr Trend Puan']:.0f}, Değerleme {row['Değerleme Puan']:.0f}, "
-        f"Haber {row['Haber Puan']:.0f} puan — toplam {row['Toplam Puan']:.0f}/100"
+        f"Momentum {row['Momentum Puan']:.0f}, Kâr Trendi {row['Kâr Trend Puan']:.0f}, "
+        f"Değerleme {row['Değerleme Puan']:.0f}, Haber {row['Haber Puan']:.0f} puan — "
+        f"toplam {row['Toplam Puan']:.0f}/100"
     )
 
 
