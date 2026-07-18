@@ -4,3 +4,4 @@ numpy
 yfinance
 altair
 borsapy
+anthropic

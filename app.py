@@ -1,9 +1,13 @@
+import os
+
 import altair as alt
+import anthropic
 import pandas as pd
 import streamlit as st
 
 from analyzer.backtest import run_momentum_backtest
 from analyzer.basket import compute_momentum_table
+from analyzer.commentary import stream_commentary
 from analyzer.ipo import get_ipo_table
 from analyzer.portfolio import TRACKED_TIER, load_state
 from analyzer.universe import UNIVERSE_OPTIONS, get_universe
@@ -215,3 +219,30 @@ else:
         lambda v: "Yeni (henüz tek gün verisi var)" if pd.isna(v) else f"{v:.1f}"
     )
     st.dataframe(display_table)
+
+st.divider()
+st.header("AI Hisse Yorumu")
+st.write(
+    "Bir hisse kodu gir, güncel haberler + temel finansal göstergeler + fiyat "
+    "performansını kullanarak AI'dan bir durum değerlendirmesi al."
+)
+st.caption(
+    "Bu bir yatırım tavsiyesi ya da tahmin değil — olumlu/olumsuz senaryoları ve "
+    "riskleri anlatan bir özet. Kaynak veri: KAP açıklamaları ve temel oranlar."
+)
+
+api_key = st.secrets.get("ANTHROPIC_API_KEY") if hasattr(st, "secrets") else None
+api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
+
+if not api_key:
+    st.warning(
+        "Bu özellik bir Anthropic API anahtarı gerektiriyor, henüz ayarlanmamış. "
+        "Streamlit Cloud'da: uygulama ayarları → Secrets → "
+        '`ANTHROPIC_API_KEY = "sk-ant-..."` ekle. Yerelde: `.streamlit/secrets.toml` '
+        "dosyasına aynı satırı ekle."
+    )
+else:
+    symbol_input = st.text_input("Hisse kodu (örn. THYAO)", "").strip().upper()
+    if st.button("Yorum al") and symbol_input:
+        client = anthropic.Anthropic(api_key=api_key)
+        st.write_stream(stream_commentary(symbol_input, client))

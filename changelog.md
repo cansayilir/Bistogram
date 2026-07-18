@@ -1,5 +1,15 @@
 # Değişiklik Günlüğü
 
+## v0.7.0 — AI Hisse Yorumu (2026-07-18)
+
+### Added
+- `analyzer/commentary.py`: bir hisse kodu için haberler (KAP açıklamaları, `borsapy` üzerinden), temel finansal göstergeler (gelir tablosu) ve fiyat performansını toplayıp Claude Opus 4.8'e gönderen, dengeli bir durum değerlendirmesi (olumlu/olumsuz senaryo + riskler) üreten modül. Sistem promptu kesin yön tahmini yapmayı açıkça yasaklıyor.
+- Panelde yeni "AI Hisse Yorumu" bölümü: hisse kodu gir, "Yorum al" butonuna bas, yanıt akış halinde (streaming) geliyor.
+- API anahtarı yönetimi: `st.secrets["ANTHROPIC_API_KEY"]` (Streamlit Cloud) veya `ANTHROPIC_API_KEY` ortam değişkeni (yerel) — anahtar yoksa panel çökmüyor, nasıl ekleneceğini gösteren bir uyarı çıkıyor.
+
+### Not
+- Bu özelliğin çalışması için Streamlit Cloud'da bir Anthropic API anahtarı eklenmesi gerekiyor (uygulama ayarları → Secrets). Anahtar eklenene kadar bu bölüm sadece kurulum talimatı gösteriyor.
+
 ## v0.6.0 — Halka Arz Menüsü (ilk sürüm) (2026-07-18)
 
 ### Added
