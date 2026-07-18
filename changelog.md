@@ -1,5 +1,13 @@
 # Değişiklik Günlüğü
 
+## v0.9.0 — AI Hisse Yorumu: iki gerçek iyileştirme (2026-07-18)
+
+### Fixed
+- Kullanıcının PGSUS için aldığı ilk canlı yorumu inceleyince iki sorun bulundu:
+  1. **Net kâr verisi kayboluyordu.** `gather_stock_context` gelir tablosunun sadece ilk 6 satırını alıyordu (`income.head(6)`), ama "DÖNEM KARI (ZARARI)" (net kâr) satırı 43 satırlık tablonun 35. sırasında — hiç AI'ya gönderilmiyordu. Artık pozisyona göre değil, isme göre (Satış Gelirleri, Satışların Maliyeti, Brüt Kâr, Faaliyet Kârı, Dönem Kârı) belirli kalemler seçiliyor.
+  2. **Yüksek enflasyon uyarısı eksikti.** Sistem promptuna, TL bazlı gelir/kâr büyümesinin nominal olduğunu ve enflasyon düşülünce gerçek büyümenin çok daha zayıf olabileceğini belirtme kuralı eklendi — "gelirler X kat arttı" tek başına olumlu bir sinyal gibi sunulmuyor artık.
+- PGSUS örneğinde net kâr verisi eklenince ortaya çıkan bulgu: 2023-2025 arası net kâr aslında düşüyor (20.9B → 17.4B → 15.1B TL), gelir artışına rağmen — önceki yorumda hiç görünmeyen bir sinyal.
+
 ## v0.8.0 — AI Hisse Yorumu: Claude'dan ücretsiz Gemini'ye geçiş (2026-07-18)
 
 ### Changed

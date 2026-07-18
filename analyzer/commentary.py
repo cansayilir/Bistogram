@@ -14,6 +14,10 @@ Kurallar:
 - Sade, jargonsuz Türkçe kullan — okuyan kişi finans uzmanı değil.
 - Bu bir yatırım tavsiyesi değildir; bunu yanıtının bir yerinde açıkça belirt.
 - Kısa ve öz ol: 4-6 paragraf yeterli.
+- Türkiye yüksek enflasyon ortamında olduğu için, TL bazlı gelir/kâr büyümesinden
+  bahsederken bunun nominal olduğunu, enflasyon düşülünce gerçek büyümenin çok daha
+  düşük (hatta negatif) olabileceğini belirt — sadece "gelirler X kat arttı" deyip
+  bunu tek başına olumlu bir sinyal gibi sunma.
 """
 
 
@@ -28,9 +32,19 @@ def gather_stock_context(symbol: str) -> dict:
     except Exception:
         news_items = []
 
+    key_income_lines = [
+        "Satış Gelirleri",
+        "Satışların Maliyeti (-)",
+        "BRÜT KAR (ZARAR)",
+        "FAALİYET KARI (ZARARI)",
+        "DÖNEM KARI (ZARARI)",
+    ]
     try:
         income = ticker.income_stmt
-        financial_summary = income.head(6).to_string()
+        available = [line for line in key_income_lines if line in income.index]
+        financial_summary = (
+            income.loc[available].to_string() if available else income.head(10).to_string()
+        )
     except Exception:
         financial_summary = "Temel finansal veri alınamadı."
 
