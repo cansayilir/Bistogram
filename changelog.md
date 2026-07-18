@@ -1,5 +1,16 @@
 # Değişiklik Günlüğü
 
+## v0.6.0 — Halka Arz Menüsü (ilk sürüm) (2026-07-18)
+
+### Added
+- `analyzer/ipo.py`: Borsa İstanbul'un resmi "BIST Halka Arz" (XHARZ, 55 hisse) endeksindeki şirketleri, ilk işlem gününden bugüne performanslarıyla listeliyor.
+- `analyzer/universe.py` refactor: `get_index_components()` artık sembol + şirket ismini birlikte döndürüyor (öncesinde sadece sembol vardı) — hem evren seçici hem halka arz menüsü aynı fonksiyonu paylaşıyor. `universe_seed.json` yedek dosyası da isimlerle yeniden oluşturuldu.
+- Panelde yeni "Halka Arz Menüsü" bölümü: şirket adı, ilk işlem günü, ilk fiyat, güncel fiyat, ilk günden getiri. Tek günlük verisi olan (dün halka arz olmuş) hisseler için yanıltıcı %0 yerine "Yeni" etiketi kullanılıyor.
+
+### Not
+- Bu ilk sürüm sadece ham listeyi gösteriyor — henüz AI yorumu / benzer geçmiş halka arzlarla emsal kıyaslaması yok (planın 3. maddesi, AI hisse yorumlama aracıyla birlikte gelecek — bir LLM API anahtarı gerektiriyor).
+- "İlk Fiyat" gerçek halka arz fiyatı değil, yfinance'teki ilk işlem günü kapanışı — ilk gün primi/iskontosunu içerebilir, ileride gerçek arz fiyatı bulunursa değiştirilecek.
+
 ## v0.5.0 — Sürekli güncellenen sepet: sat/ekle/tut (2026-07-18)
 
 ### Added

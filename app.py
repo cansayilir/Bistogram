@@ -1,8 +1,10 @@
 import altair as alt
+import pandas as pd
 import streamlit as st
 
 from analyzer.backtest import run_momentum_backtest
 from analyzer.basket import compute_momentum_table
+from analyzer.ipo import get_ipo_table
 from analyzer.portfolio import TRACKED_TIER, load_state
 from analyzer.universe import UNIVERSE_OPTIONS, get_universe
 
@@ -181,3 +183,35 @@ else:
             "(mutlak büyüklükler TL'nin bu dönemdeki yüksek enflasyonu nedeniyle "
             "abartılı görünüyor — asıl bakılması gereken ikisi arasındaki fark)"
         )
+
+st.divider()
+st.header("Halka Arz Menüsü")
+st.write(
+    "Borsa İstanbul'un resmi 'BIST Halka Arz' listesindeki hisseler — ilk işlem "
+    "gününden bugüne performansları ile. Henüz AI yorumu / emsal kıyaslaması yok, "
+    "bu ilk sürüm sadece ham listeyi gösteriyor."
+)
+st.caption(
+    "Not: 'İlk Fiyat', gerçek halka arz fiyatı değil, yfinance'te bulunan ilk "
+    "işlem günü kapanış fiyatı — ilk gün primi/iskontosunu içerebilir."
+)
+
+
+@st.cache_data(ttl=6 * 60 * 60, show_spinner="Halka arz listesi hazırlanıyor...")
+def get_ipo_table_cached():
+    return get_ipo_table()
+
+
+ipo_table, ipo_is_live, ipo_seed_date = get_ipo_table_cached()
+
+if not ipo_is_live and not ipo_table.empty:
+    st.info(f"Not: canlı kaynağa ulaşılamadı, {ipo_seed_date} tarihli yedek liste kullanıldı.")
+
+if ipo_table.empty:
+    st.error("Halka arz listesi alınamadı, lütfen daha sonra tekrar dene.")
+else:
+    display_table = ipo_table.copy()
+    display_table["İlk Günden Getiri (%)"] = display_table["İlk Günden Getiri (%)"].apply(
+        lambda v: "Yeni (henüz tek gün verisi var)" if pd.isna(v) else f"{v:.1f}"
+    )
+    st.dataframe(display_table)
