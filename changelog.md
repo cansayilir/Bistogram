@@ -1,5 +1,13 @@
 # Değişiklik Günlüğü
 
+## v0.10.0 — AI Hisse Yorumu: yükleniyor göstergesi + tarih hatası düzeltmesi (2026-07-18)
+
+### Fixed
+- Kullanıcının BETAE (yeni halka arz) için aldığı yorumda AI'nın kendisi bir çelişki fark etti: "18 ay önceki fiyat" diye etiketlenen veri aslında sadece 3 haftalık bir geçmişti (hisse 29 Haziran 2026'da halka arz olmuş). Sebep: `gather_stock_context` her zaman "~18 ay önceki fiyat" diye etiketliyordu, mevcut verinin gerçekte hangi tarihten başladığını kontrol etmiyordu. Artık gerçek tarihler ("mevcut en eski veri (2026-07-01)" gibi) kullanılıyor — yeni halka arzlarda kısa geçmiş dürüstçe kısa gösteriliyor.
+
+### Added
+- "Yorum al" butonuna basınca artık hiçbir şey olmuyormuş gibi görünmüyor: veri toplanırken ("... veri toplanıyor") ve Gemini ilk yanıtı üretirken ("Gemini yorum üretiyor...") ayrı ayrı yükleniyor göstergeleri var.
+
 ## v0.9.0 — AI Hisse Yorumu: iki gerçek iyileştirme (2026-07-18)
 
 ### Fixed

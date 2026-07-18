@@ -53,12 +53,17 @@ def gather_stock_context(symbol: str) -> dict:
         col = f"{symbol}.IS"
         series = prices[col].dropna()
         current_price = series.iloc[-1]
-        year_ago_price = series.iloc[0]
-        yearly_return = (current_price / year_ago_price - 1) * 100
+        first_price = series.iloc[0]
+        first_date = series.index[0].date()
+        last_date = series.index[-1].date()
+        total_return = (current_price / first_price - 1) * 100
+        # "18 ay" istense de yeni halka arz olmuş hisselerde gerçek veri çok daha
+        # kısa olabilir — bu yüzden varsayılan tarih aralığı değil, elimizdeki
+        # verinin gerçekte hangi tarihten başladığı açıkça belirtiliyor.
         price_summary = (
-            f"Güncel fiyat: {current_price:.2f} TL, "
-            f"~18 ay önceki fiyat: {year_ago_price:.2f} TL, "
-            f"getiri: %{yearly_return:.1f}"
+            f"Güncel fiyat ({last_date}): {current_price:.2f} TL, "
+            f"mevcut en eski veri ({first_date}): {first_price:.2f} TL, "
+            f"bu aralıktaki getiri: %{total_return:.1f}"
         )
     except Exception:
         price_summary = "Fiyat verisi alınamadı."
@@ -91,13 +96,12 @@ Bu bilgilere dayanarak {context['symbol']} hissesi için bir durum değerlendirm
 MODEL = "gemini-3.5-flash"
 
 
-def stream_commentary(symbol: str, client):
+def stream_llm_response(prompt: str, client):
     """client: google.genai.Client örneği. Metin parçalarını üretir (Streamlit
-    st.write_stream ile uyumlu)."""
+    st.write_stream ile uyumlu). Veri toplama (gather_stock_context) ayrı
+    tutuldu ki arayüz iki aşamayı (veri toplama / AI yanıtı) ayrı ayrı
+    gösterebilsin."""
     from google.genai import types
-
-    context = gather_stock_context(symbol)
-    prompt = build_prompt(context)
 
     for chunk in client.models.generate_content_stream(
         model=MODEL,

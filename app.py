@@ -7,7 +7,7 @@ from google import genai
 
 from analyzer.backtest import run_momentum_backtest
 from analyzer.basket import compute_momentum_table
-from analyzer.commentary import stream_commentary
+from analyzer.commentary import build_prompt, gather_stock_context, stream_llm_response
 from analyzer.ipo import get_ipo_table
 from analyzer.portfolio import TRACKED_TIER, load_state
 from analyzer.universe import UNIVERSE_OPTIONS, get_universe
@@ -246,4 +246,20 @@ else:
     symbol_input = st.text_input("Hisse kodu (örn. THYAO)", "").strip().upper()
     if st.button("Yorum al") and symbol_input:
         client = genai.Client(api_key=api_key)
-        st.write_stream(stream_commentary(symbol_input, client))
+
+        with st.spinner(f"{symbol_input} için haberler, finansal tablo ve fiyat verisi toplanıyor..."):
+            context = gather_stock_context(symbol_input)
+            prompt = build_prompt(context)
+
+        response_stream = stream_llm_response(prompt, client)
+        with st.spinner("Gemini yorum üretiyor..."):
+            first_chunk = next(response_stream, None)
+
+        if first_chunk is None:
+            st.error("Yorum üretilemedi, lütfen tekrar dene.")
+        else:
+            def _prepend(first, rest):
+                yield first
+                yield from rest
+
+            st.write_stream(_prepend(first_chunk, response_stream))
