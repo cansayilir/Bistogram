@@ -5,8 +5,9 @@ import pandas as pd
 import streamlit as st
 from google import genai
 
+from analyzer.ai_basket import load_state as load_ai_basket_state
 from analyzer.backtest import run_momentum_backtest
-from analyzer.basket import compute_momentum_table
+from analyzer.basket import compute_momentum_table, fetch_prices, to_yf_ticker
 from analyzer.commentary import build_prompt, gather_stock_context, stream_llm_response
 from analyzer.ipo import get_ipo_table
 from analyzer.portfolio import TRACKED_TIER, load_state
@@ -263,3 +264,76 @@ else:
                 yield from rest
 
             st.write_stream(_prepend(first_chunk, response_stream))
+
+st.divider()
+st.header("AI Sepeti (Deneysel)")
+st.write(
+    "Momentum sepetinden farklı, ikinci bir sistem: her BIST 100 hissesini "
+    "teknik (momentum + trend), temel (kâr trendi + değerleme) ve haber (KAP "
+    "kırmızı bayrakları) açısından 100 üzerinden puanlıyor, buna göre bir hedef "
+    "alım fiyatı belirliyor. Fiyat bu hedefe düşünce sepete giriyor, hedef satış "
+    "fiyatına ulaşınca çıkıp sonucu kaydediyor. Günde bir otomatik güncelleniyor."
+)
+st.warning(
+    "DÜRÜST UYARI: Bu puanlama mantıklı bir çerçeve olarak tasarlandı ama "
+    "momentum sepeti gibi henüz geçmiş veriyle test edilmedi — kanıtlanmış "
+    "değil, deneysel olarak izleyin."
+)
+
+ai_state = load_ai_basket_state()
+
+if ai_state.get("last_updated"):
+    st.caption(f"Son güncelleme: {ai_state['last_updated']}")
+
+if ai_state["active"]:
+    st.subheader(f"Aktif Pozisyonlar ({len(ai_state['active'])})")
+    active_symbols = list(ai_state["active"].keys())
+    current_prices = fetch_prices(active_symbols, period="5d")
+
+    rows = []
+    for symbol, pos in ai_state["active"].items():
+        col = to_yf_ticker(symbol)
+        current_price = (
+            current_prices[col].dropna().iloc[-1] if col in current_prices.columns else None
+        )
+        days_held = (
+            pd.Timestamp.today().date() - pd.Timestamp(pos["giris_tarihi"]).date()
+        ).days
+        pl_pct = (current_price / pos["giris_fiyati"] - 1) * 100 if current_price else None
+        rows.append({
+            "Hisse": symbol,
+            "Giriş Tarihi": pos["giris_tarihi"],
+            "Giriş Fiyatı": pos["giris_fiyati"],
+            "Güncel Fiyat": current_price,
+            "Kaç Gündür": days_held,
+            "%Kâr/Zarar": pl_pct,
+            "Hedef Satış": pos["hedef_satis_fiyati"],
+            "Tahmini Vade": pos["tahmini_vade"],
+            "Sermaye Payı (%)": pos["sermaye_payi_pct"],
+            "Gerekçe": pos["gerekce"],
+        })
+    st.dataframe(pd.DataFrame(rows))
+else:
+    st.info("Şu an aktif pozisyon yok — hedef fiyatına ulaşan hisse bekleniyor.")
+
+watchlist = ai_state.get("watchlist", {})
+if watchlist:
+    with st.expander(f"İzleme Listesi ({len(watchlist)}) — hedef fiyatına henüz ulaşmadı"):
+        watch_rows = [
+            {
+                "Hisse": symbol,
+                "İzlemeye Alınma": w["eklenme_tarihi"],
+                "Hedef Alım Fiyatı": w["hedef_alim_fiyati"],
+                "Hedef Satış Fiyatı": w["hedef_satis_fiyati"],
+                "Toplam Puan": w["toplam_puan"],
+                "Tahmini Vade": w["tahmini_vade"],
+            }
+            for symbol, w in watchlist.items()
+        ]
+        st.dataframe(
+            pd.DataFrame(watch_rows).sort_values("Toplam Puan", ascending=False).reset_index(drop=True)
+        )
+
+if ai_state["closed"]:
+    with st.expander(f"Kapanan İşlemler ({len(ai_state['closed'])})"):
+        st.dataframe(pd.DataFrame(ai_state["closed"]))

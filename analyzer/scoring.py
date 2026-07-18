@@ -1,0 +1,166 @@
+import borsapy as bp
+import numpy as np
+import pandas as pd
+import yfinance as yf
+
+from analyzer.basket import compute_momentum_table, fetch_prices, to_yf_ticker
+
+RED_FLAG_KEYWORDS = ["Devre Kesici", "İşlem Yasağı"]
+
+
+def _momentum_and_trend_scores(universe: list[str]) -> pd.DataFrame:
+    """Momentum puanı: BIST100 içindeki 12-1 ay getiri sıralamasında nerede
+    olduğu (üst dilim = yüksek puan). Trend puanı: fiyat 200 günlük ortalamanın
+    üzerinde mi (sağlıklı yükseliş) ve bu ortalamaya yakın mı (iyi giriş noktası,
+    aşırı uzamamış)."""
+    momentum_table = compute_momentum_table(universe)
+    if momentum_table.empty:
+        return pd.DataFrame(columns=["Hisse", "Güncel Fiyat", "Momentum Puan", "Trend Puan"])
+
+    n = len(momentum_table)
+    if n > 1:
+        momentum_table["Momentum Puan"] = 20 * (1 - (momentum_table.index - 1) / (n - 1))
+    else:
+        momentum_table["Momentum Puan"] = 20.0
+
+    prices = fetch_prices(universe, period="18mo")
+    trend_scores = {}
+    for symbol in universe:
+        col = to_yf_ticker(symbol)
+        if col not in prices.columns:
+            continue
+        series = prices[col].dropna()
+        if len(series) < 200:
+            trend_scores[symbol] = 10.0  # yetersiz veri, nötr puan
+            continue
+        ma200 = series.tail(200).mean()
+        current = series.iloc[-1]
+        if current < ma200:
+            trend_scores[symbol] = 0.0  # düşüş trendinde
+        else:
+            distance_pct = (current / ma200 - 1) * 100
+            trend_scores[symbol] = max(0.0, 20.0 * (1 - max(0.0, distance_pct - 5) / 15))
+
+    momentum_table["Trend Puan"] = momentum_table["Hisse"].map(trend_scores).fillna(10.0)
+    return momentum_table[["Hisse", "Güncel Fiyat", "Momentum Puan", "Trend Puan"]]
+
+
+def _profit_trend_score(symbol: str) -> float:
+    """Son yıllardaki net kâr sürekli büyüyorsa tam puan, sürekli düşüyorsa
+    sıfır, karışıksa nötr."""
+    try:
+        income = bp.Ticker(symbol).income_stmt
+        net_income = income.loc["DÖNEM KARI (ZARARI)"]
+        years = sorted(net_income.index)
+        values = [net_income[y] for y in years]
+        if len(values) < 2:
+            return 10.0
+        diffs = [b - a for a, b in zip(values, values[1:])]
+        if all(d > 0 for d in diffs):
+            return 20.0
+        if all(d < 0 for d in diffs):
+            return 0.0
+        return 10.0
+    except Exception:
+        return 10.0
+
+
+def _news_score(symbol: str) -> tuple[float, bool]:
+    """Son 30 günde devre kesici / işlem yasağı gibi kırmızı bayrak varsa
+    büyük puan kaybı."""
+    try:
+        news = bp.Ticker(symbol).news
+        dates = pd.to_datetime(news["Date"], format="%d.%m.%Y %H:%M:%S", errors="coerce")
+        recent = news[dates >= (pd.Timestamp.now() - pd.Timedelta(days=30))]
+        titles = " ".join(recent["Title"].astype(str).tolist())
+        if any(keyword in titles for keyword in RED_FLAG_KEYWORDS):
+            return 0.0, True
+        return 20.0, False
+    except Exception:
+        return 10.0, False
+
+
+def _valuation_scores(universe: list[str]) -> dict[str, float]:
+    """Düşük F/K (ucuz) = yüksek puan, BIST100 içindeki sıralamaya göre."""
+    pe_values = {}
+    for symbol in universe:
+        try:
+            info = yf.Ticker(to_yf_ticker(symbol)).info
+            pe = info.get("trailingPE")
+            if pe is not None and pe > 0:
+                pe_values[symbol] = pe
+        except Exception:
+            continue
+
+    scores = {}
+    if pe_values:
+        sorted_symbols = sorted(pe_values, key=lambda s: pe_values[s])
+        n = len(sorted_symbols)
+        for rank, symbol in enumerate(sorted_symbols):
+            scores[symbol] = 20 * (1 - rank / (n - 1)) if n > 1 else 20.0
+    for symbol in universe:
+        scores.setdefault(symbol, 10.0)
+    return scores
+
+
+def compute_scores(universe: list[str]) -> pd.DataFrame:
+    """Her hisse için kompozit puan (0-100) + hedef alım/satış fiyatı çıkarır.
+
+    Puanlama: momentum (20) + trend-geri çekilme (20) + kâr trendi (20) +
+    değerleme (20) + haber/KAP temizliği (20). Skor eşiklerine göre hedef alım
+    fiyatı (güncel fiyata indirim), hedef satış fiyatı (kâr hedefi) ve kaba bir
+    vade tahmini üretiliyor.
+
+    DÜRÜST NOT: Bu puanlama mantıklı bir çerçeve ama henüz geçmiş veriyle test
+    edilmedi (momentum sepetindeki gibi bir backtest yok) — sıradaki adım bu.
+    """
+    base = _momentum_and_trend_scores(universe)
+    if base.empty:
+        return base
+
+    valuation_scores = _valuation_scores(universe)
+
+    rows = []
+    for _, row in base.iterrows():
+        symbol = row["Hisse"]
+        profit_score = _profit_trend_score(symbol)
+        news_score, has_red_flag = _news_score(symbol)
+        value_score = valuation_scores.get(symbol, 10.0)
+
+        total = row["Momentum Puan"] + row["Trend Puan"] + profit_score + value_score + news_score
+        current_price = row["Güncel Fiyat"]
+
+        if has_red_flag:
+            # Kırmızı bayrak (devre kesici/işlem yasağı) varsa skor ne olursa
+            # olsun şu an giriş yapılmaz — bu bir puan indirimi değil, sert kapı.
+            discount = target_gain = horizon = None
+        elif total >= 80:
+            discount, target_gain, horizon = 0.03, 0.25, "3-6 ay"
+        elif total >= 60:
+            discount, target_gain, horizon = 0.06, 0.18, "4-8 ay"
+        elif total >= 40:
+            discount, target_gain, horizon = 0.12, 0.12, "6-12 ay"
+        else:
+            discount = target_gain = horizon = None
+
+        entry_price = current_price * (1 - discount) if discount is not None else None
+        exit_price = entry_price * (1 + target_gain) if entry_price is not None else None
+
+        rows.append({
+            "Hisse": symbol,
+            "Güncel Fiyat": current_price,
+            "Momentum Puan": row["Momentum Puan"],
+            "Trend Puan": row["Trend Puan"],
+            "Kâr Trend Puan": profit_score,
+            "Değerleme Puan": value_score,
+            "Haber Puan": news_score,
+            "Toplam Puan": total,
+            "Kırmızı Bayrak": has_red_flag,
+            "Hedef Alım Fiyatı": entry_price,
+            "Hedef Satış Fiyatı": exit_price,
+            "Tahmini Vade": horizon,
+        })
+
+    result = pd.DataFrame(rows).sort_values("Toplam Puan", ascending=False).reset_index(drop=True)
+    result.index += 1
+    return result

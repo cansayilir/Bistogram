@@ -1,5 +1,18 @@
 # Değişiklik Günlüğü
 
+## v0.11.0 — AI Sepeti: puanlama tabanlı ikinci sepet sistemi (2026-07-18)
+
+### Added
+- `analyzer/scoring.py`: her BIST 100 hissesi için 100 üzerinden kompozit puan hesaplıyor — Momentum (20, BIST100 içindeki 12-1 ay getiri sıralaması), Trend (20, fiyatın 200 günlük ortalamaya göre konumu), Kâr Trendi (20, son yılların net kâr yönü), Değerleme (20, F/K'nın BIST100 içindeki ucuzluk sıralaması, yfinance'ten), Haber (20, son 30 günde devre kesici/işlem yasağı gibi kırmızı bayrak varsa sert kesinti — puan indirimi değil, giriş engeli).
+- `analyzer/ai_basket.py`: izleme listesi → aktif pozisyon → kapanan işlem akışını yöneten durum makinesi. **Önemli tasarım kararı:** hedef alım/satış fiyatları bir hisse ilk izlemeye alındığında donduruluyor, her gün güncel fiyata göre yeniden hesaplanmıyor (aksi halde hedef "bugünün fiyatının biraz altı" olarak sürekli kayar ve hiç yakalanamaz — ilk denemede bu hatayı yapıp fark ettik).
+- `scripts/update_ai_basket.py` + `.github/workflows/ai_basket_update.yml`: BIST 100'ü günde bir tarayıp durumu güncelleyen otomatik iş akışı (momentum sepetiyle aynı git-tabanlı kalıcılık deseni).
+- Panelde yeni "AI Sepeti (Deneysel)" bölümü: aktif pozisyonlar (giriş tarihi/fiyatı, kaç gündür tutulduğu, güncel %kâr/zarar, hedef satış, tahmini vade, gerekçe, sermaye payı), izleme listesi (hedefine henüz ulaşmamış adaylar), kapanan işlemler geçmişi (gerçekleşen kâr/zarar).
+- İlk tarama yapıldı: 64 hisse izleme listesine eklendi, hedefleri donduruldu; 0 aktif pozisyon (beklenen — ilk turda hiçbir hisse henüz kendi donmuş hedefine karşı test edilmedi).
+
+### Not
+- Bu sistem kullanıcının isteği üzerine LLM (Gemini) kullanmadan, tamamen kodlanmış/kural tabanlı bir puanlama olarak tasarlandı — momentum sepeti gibi ayrı, ikinci bir sepet.
+- **DÜRÜST UYARI:** Bu puanlama mantıklı bir çerçeve ama henüz momentum sepeti gibi geçmiş veriyle test edilmedi — kanıtlanmış değil, deneysel. Sıradaki adım bunun bir backtest'ini yapmak.
+
 ## v0.10.0 — AI Hisse Yorumu: yükleniyor göstergesi + tarih hatası düzeltmesi (2026-07-18)
 
 ### Fixed
