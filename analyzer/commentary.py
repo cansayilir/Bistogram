@@ -74,18 +74,21 @@ Bu bilgilere dayanarak {context['symbol']} hissesi için bir durum değerlendirm
 """
 
 
+MODEL = "gemini-3.5-flash"
+
+
 def stream_commentary(symbol: str, client):
-    """client: anthropic.Anthropic örneği. Metin parçalarını üretir (Streamlit
+    """client: google.genai.Client örneği. Metin parçalarını üretir (Streamlit
     st.write_stream ile uyumlu)."""
+    from google.genai import types
+
     context = gather_stock_context(symbol)
     prompt = build_prompt(context)
 
-    with client.messages.stream(
-        model="claude-opus-4-8",
-        max_tokens=2000,
-        system=SYSTEM_PROMPT,
-        thinking={"type": "adaptive"},
-        output_config={"effort": "high"},
-        messages=[{"role": "user", "content": prompt}],
-    ) as stream:
-        yield from stream.text_stream
+    for chunk in client.models.generate_content_stream(
+        model=MODEL,
+        contents=prompt,
+        config=types.GenerateContentConfig(system_instruction=SYSTEM_PROMPT),
+    ):
+        if chunk.text:
+            yield chunk.text

@@ -1,5 +1,15 @@
 # Değişiklik Günlüğü
 
+## v0.8.0 — AI Hisse Yorumu: Claude'dan ücretsiz Gemini'ye geçiş (2026-07-18)
+
+### Changed
+- Canlıda test edilirken Anthropic hesabında kredi olmadığı ortaya çıktı (`insufficient_quota`). Kullanıcı ücretli kalmak istemedi — `analyzer/commentary.py` artık Google Gemini API (`gemini-3.5-flash`, `google-genai` SDK) kullanıyor: kredi kartı gerektirmeyen gerçek bir ücretsiz katmanı var (günde 1.500 istek).
+- `app.py`: API anahtarı kontrolü `ANTHROPIC_API_KEY` yerine `GEMINI_API_KEY` okuyor; uyarı mesajı `aistudio.google.com`'dan ücretsiz anahtar alma talimatına güncellendi.
+- `requirements.txt`: `anthropic` çıkarıldı, `google-genai` eklendi.
+
+### Güvenlik notu
+- Kullanıcı bir Anthropic API anahtarını yanlışlıkla sohbete yapıştırdı — anahtar kullanılmadı, iptal edilip yeniden oluşturulması söylendi. Anahtarlar sadece Streamlit Cloud'un Secrets arayüzüne girilmeli, sohbete değil.
+
 ## v0.7.0 — AI Hisse Yorumu (2026-07-18)
 
 ### Added
