@@ -280,8 +280,16 @@
       "tahmini_vade": "6-12 ay",
       "toplam_puan": 41.36054421768708,
       "gerekce": "Momentum 15, Kâr Trendi 0, Değerleme 7, Haber 20 puan — toplam 41/100"
+    },
+    "BERA": {
+      "eklenme_tarihi": "2026-07-20",
+      "hedef_alim_fiyati": 13.164800033569335,
+      "hedef_satis_fiyati": 14.744576037597657,
+      "tahmini_vade": "6-12 ay",
+      "toplam_puan": 43.87755102040816,
+      "gerekce": "Momentum 14, Kâr Trendi 0, Değerleme 10, Haber 20 puan — toplam 44/100"
     }
   },
   "closed": [],
-  "last_updated": "2026-07-19"
+  "last_updated": "2026-07-20"
 }
