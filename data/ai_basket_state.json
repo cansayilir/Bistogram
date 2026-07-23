@@ -288,8 +288,16 @@
       "tahmini_vade": "6-12 ay",
       "toplam_puan": 43.87755102040816,
       "gerekce": "Momentum 14, Kâr Trendi 0, Değerleme 10, Haber 20 puan — toplam 44/100"
+    },
+    "AKBNK": {
+      "eklenme_tarihi": "2026-07-23",
+      "hedef_alim_fiyati": 62.65100143432617,
+      "hedef_satis_fiyati": 73.92818169250488,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 70.29931972789116,
+      "gerekce": "Momentum 22, Kâr Trendi 10, Değerleme 19, Haber 20 puan — toplam 70/100"
     }
   },
   "closed": [],
-  "last_updated": "2026-07-22"
+  "last_updated": "2026-07-23"
 }
