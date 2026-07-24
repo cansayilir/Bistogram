@@ -1,5 +1,15 @@
 {
-  "active": {},
+  "active": {
+    "TOASO": {
+      "giris_tarihi": "2026-07-24",
+      "giris_fiyati": 282.75,
+      "giris_endeks_seviyesi": 13974.3095703125,
+      "hedef_satis_fiyati": 341.3562999999999,
+      "tahmini_vade": "4-8 ay",
+      "gerekce": "Momentum 31, Kâr Trendi 0, Değerleme 14, Haber 20 puan — toplam 66/100",
+      "sermaye_payi_pct": 10.0
+    }
+  },
   "watchlist": {
     "ENKAI": {
       "eklenme_tarihi": "2026-07-18",
@@ -80,14 +90,6 @@
       "tahmini_vade": "4-8 ay",
       "toplam_puan": 66.45986394557823,
       "gerekce": "Momentum 36, Kâr Trendi 0, Değerleme 10, Haber 20 puan — toplam 66/100"
-    },
-    "TOASO": {
-      "eklenme_tarihi": "2026-07-18",
-      "hedef_alim_fiyati": 289.28499999999997,
-      "hedef_satis_fiyati": 341.3562999999999,
-      "tahmini_vade": "4-8 ay",
-      "toplam_puan": 65.82857142857142,
-      "gerekce": "Momentum 31, Kâr Trendi 0, Değerleme 14, Haber 20 puan — toplam 66/100"
     },
     "GRSEL": {
       "eklenme_tarihi": "2026-07-18",
@@ -296,8 +298,16 @@
       "tahmini_vade": "4-8 ay",
       "toplam_puan": 70.29931972789116,
       "gerekce": "Momentum 22, Kâr Trendi 10, Değerleme 19, Haber 20 puan — toplam 70/100"
+    },
+    "ODAS": {
+      "eklenme_tarihi": "2026-07-24",
+      "hedef_alim_fiyati": 7.990399932861328,
+      "hedef_satis_fiyati": 8.949247924804688,
+      "tahmini_vade": "6-12 ay",
+      "toplam_puan": 54.04625850340136,
+      "gerekce": "Momentum 29, Kâr Trendi 0, Değerleme 5, Haber 20 puan — toplam 54/100"
     }
   },
   "closed": [],
-  "last_updated": "2026-07-23"
+  "last_updated": "2026-07-24"
 }
