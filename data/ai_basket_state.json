@@ -324,8 +324,24 @@
       "tahmini_vade": "4-8 ay",
       "toplam_puan": 62.4,
       "gerekce": "Momentum 20, Kâr Trendi 20, Değerleme 2, Haber 20 puan — toplam 62/100"
+    },
+    "GESAN": {
+      "eklenme_tarihi": "2026-07-27",
+      "hedef_alim_fiyati": 76.09299713134766,
+      "hedef_satis_fiyati": 89.78973661499023,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 72.27210884353741,
+      "gerekce": "Momentum 27, Kâr Trendi 20, Değerleme 5, Haber 20 puan — toplam 72/100"
+    },
+    "MAGEN": {
+      "eklenme_tarihi": "2026-07-27",
+      "hedef_alim_fiyati": 37.31800071716308,
+      "hedef_satis_fiyati": 44.035240846252435,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 64.28571428571429,
+      "gerekce": "Momentum 34, Kâr Trendi 0, Değerleme 10, Haber 20 puan — toplam 64/100"
     }
   },
   "closed": [],
-  "last_updated": "2026-07-26"
+  "last_updated": "2026-07-27"
 }
