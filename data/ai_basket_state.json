@@ -26,6 +26,33 @@
       "tahmini_vade": "4-8 ay",
       "gerekce": "Momentum 10, Kâr Trendi 20, Değerleme 10, Haber 20 puan — toplam 61/100",
       "sermaye_payi_pct": 10.0
+    },
+    "ECILC": {
+      "giris_tarihi": "2026-07-29",
+      "giris_fiyati": 67.80000305175781,
+      "giris_endeks_seviyesi": 13562.3701171875,
+      "hedef_satis_fiyati": 81.52619999999999,
+      "tahmini_vade": "4-8 ay",
+      "gerekce": "Momentum 32, Kâr Trendi 0, Değerleme 10, Haber 20 puan — toplam 62/100",
+      "sermaye_payi_pct": 10.0
+    },
+    "BERA": {
+      "giris_tarihi": "2026-07-29",
+      "giris_fiyati": 12.880000114440918,
+      "giris_endeks_seviyesi": 13562.3701171875,
+      "hedef_satis_fiyati": 14.744576037597657,
+      "tahmini_vade": "6-12 ay",
+      "gerekce": "Momentum 14, Kâr Trendi 0, Değerleme 10, Haber 20 puan — toplam 44/100",
+      "sermaye_payi_pct": 10.0
+    },
+    "GESAN": {
+      "giris_tarihi": "2026-07-29",
+      "giris_fiyati": 72.69999694824219,
+      "giris_endeks_seviyesi": 13562.3701171875,
+      "hedef_satis_fiyati": 89.78973661499023,
+      "tahmini_vade": "4-8 ay",
+      "gerekce": "Momentum 27, Kâr Trendi 20, Değerleme 5, Haber 20 puan — toplam 72/100",
+      "sermaye_payi_pct": 10.0
     }
   },
   "watchlist": {
@@ -108,14 +135,6 @@
       "tahmini_vade": "4-8 ay",
       "toplam_puan": 63.97823129251701,
       "gerekce": "Momentum 12, Kâr Trendi 20, Değerleme 12, Haber 20 puan — toplam 64/100"
-    },
-    "ECILC": {
-      "eklenme_tarihi": "2026-07-18",
-      "hedef_alim_fiyati": 69.08999999999999,
-      "hedef_satis_fiyati": 81.52619999999999,
-      "tahmini_vade": "4-8 ay",
-      "toplam_puan": 62.244897959183675,
-      "gerekce": "Momentum 32, Kâr Trendi 0, Değerleme 10, Haber 20 puan — toplam 62/100"
     },
     "GARAN": {
       "eklenme_tarihi": "2026-07-18",
@@ -285,14 +304,6 @@
       "toplam_puan": 41.36054421768708,
       "gerekce": "Momentum 15, Kâr Trendi 0, Değerleme 7, Haber 20 puan — toplam 41/100"
     },
-    "BERA": {
-      "eklenme_tarihi": "2026-07-20",
-      "hedef_alim_fiyati": 13.164800033569335,
-      "hedef_satis_fiyati": 14.744576037597657,
-      "tahmini_vade": "6-12 ay",
-      "toplam_puan": 43.87755102040816,
-      "gerekce": "Momentum 14, Kâr Trendi 0, Değerleme 10, Haber 20 puan — toplam 44/100"
-    },
     "AKBNK": {
       "eklenme_tarihi": "2026-07-23",
       "hedef_alim_fiyati": 62.65100143432617,
@@ -325,14 +336,6 @@
       "toplam_puan": 62.4,
       "gerekce": "Momentum 20, Kâr Trendi 20, Değerleme 2, Haber 20 puan — toplam 62/100"
     },
-    "GESAN": {
-      "eklenme_tarihi": "2026-07-27",
-      "hedef_alim_fiyati": 76.09299713134766,
-      "hedef_satis_fiyati": 89.78973661499023,
-      "tahmini_vade": "4-8 ay",
-      "toplam_puan": 72.27210884353741,
-      "gerekce": "Momentum 27, Kâr Trendi 20, Değerleme 5, Haber 20 puan — toplam 72/100"
-    },
     "MAGEN": {
       "eklenme_tarihi": "2026-07-27",
       "hedef_alim_fiyati": 37.31800071716308,
@@ -340,8 +343,16 @@
       "tahmini_vade": "4-8 ay",
       "toplam_puan": 64.28571428571429,
       "gerekce": "Momentum 34, Kâr Trendi 0, Değerleme 10, Haber 20 puan — toplam 64/100"
+    },
+    "EKGYO": {
+      "eklenme_tarihi": "2026-07-29",
+      "hedef_alim_fiyati": 15.97199966430664,
+      "hedef_satis_fiyati": 17.88863962402344,
+      "tahmini_vade": "6-12 ay",
+      "toplam_puan": 56.98503401360545,
+      "gerekce": "Momentum 16, Kâr Trendi 20, Değerleme 1, Haber 20 puan — toplam 57/100"
     }
   },
   "closed": [],
-  "last_updated": "2026-07-28"
+  "last_updated": "2026-07-29"
 }
