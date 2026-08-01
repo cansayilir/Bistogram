@@ -4,24 +4,24 @@
     "ODINE",
     "IEYHO",
     "DSTKF",
-    "CVKMD",
+    "SKBNK",
     "ASTOR",
-    "CWENE",
+    "CVKMD",
     "EUPWR",
     "BSOKE",
-    "AKSEN",
-    "ASELS",
-    "MAGEN",
-    "SKBNK",
+    "CWENE",
     "SARKY",
+    "ASELS",
     "TRALT",
+    "AKSEN",
+    "MAGEN",
     "GUBRF",
-    "RALYH",
-    "HALKB",
-    "BRSAN",
-    "ECILC"
+    "CCOLA",
+    "TRENJ",
+    "ENJSA",
+    "RALYH"
   ],
-  "last_rebalanced": "2026-07-18",
+  "last_rebalanced": "2026-08-01",
   "history": [
     {
       "date": "2026-07-18",
@@ -49,6 +49,38 @@
         "TRALT"
       ],
       "sat": []
+    },
+    {
+      "date": "2026-08-01",
+      "tut": [
+        "AKSEN",
+        "ASELS",
+        "ASTOR",
+        "BSOKE",
+        "CVKMD",
+        "CWENE",
+        "DSTKF",
+        "EUPWR",
+        "GUBRF",
+        "IEYHO",
+        "KTLEV",
+        "MAGEN",
+        "ODINE",
+        "RALYH",
+        "SARKY",
+        "SKBNK",
+        "TRALT"
+      ],
+      "ekle": [
+        "CCOLA",
+        "ENJSA",
+        "TRENJ"
+      ],
+      "sat": [
+        "BRSAN",
+        "ECILC",
+        "HALKB"
+      ]
     }
   ]
 }
