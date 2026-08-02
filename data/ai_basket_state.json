@@ -355,8 +355,24 @@
       "tahmini_vade": "6-12 ay",
       "toplam_puan": 56.98503401360545,
       "gerekce": "Momentum 16, Kâr Trendi 20, Değerleme 1, Haber 20 puan — toplam 57/100"
+    },
+    "ISCTR": {
+      "eklenme_tarihi": "2026-08-02",
+      "hedef_alim_fiyati": 11.72180025100708,
+      "hedef_satis_fiyati": 13.831724296188353,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 63.89387755102041,
+      "gerekce": "Momentum 15, Kâr Trendi 10, Değerleme 19, Haber 20 puan — toplam 64/100"
+    },
+    "MGROS": {
+      "eklenme_tarihi": "2026-08-02",
+      "hedef_alim_fiyati": 550.44,
+      "hedef_satis_fiyati": 616.4928000000001,
+      "tahmini_vade": "6-12 ay",
+      "toplam_puan": 54.323809523809516,
+      "gerekce": "Momentum 23, Kâr Trendi 0, Değerleme 11, Haber 20 puan — toplam 54/100"
     }
   },
   "closed": [],
-  "last_updated": "2026-07-31"
+  "last_updated": "2026-08-02"
 }
