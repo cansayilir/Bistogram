@@ -371,8 +371,24 @@
       "tahmini_vade": "6-12 ay",
       "toplam_puan": 54.323809523809516,
       "gerekce": "Momentum 23, Kâr Trendi 0, Değerleme 11, Haber 20 puan — toplam 54/100"
+    },
+    "HALKB": {
+      "eklenme_tarihi": "2026-08-03",
+      "hedef_alim_fiyati": 35.62600143432617,
+      "hedef_satis_fiyati": 42.03868169250488,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 77.67891156462585,
+      "gerekce": "Momentum 31, Kâr Trendi 10, Değerleme 17, Haber 20 puan — toplam 78/100"
+    },
+    "ENERY": {
+      "eklenme_tarihi": "2026-08-03",
+      "hedef_alim_fiyati": 8.582200107574462,
+      "hedef_satis_fiyati": 10.126996126937865,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 69.92653061224489,
+      "gerekce": "Momentum 16, Kâr Trendi 20, Değerleme 14, Haber 20 puan — toplam 70/100"
     }
   },
   "closed": [],
-  "last_updated": "2026-08-02"
+  "last_updated": "2026-08-03"
 }
