@@ -395,8 +395,24 @@
       "tahmini_vade": "3-6 ay",
       "toplam_puan": 86.76734693877552,
       "gerekce": "Momentum 38, Kâr Trendi 10, Değerleme 18, Haber 20 puan — toplam 87/100"
+    },
+    "CCOLA": {
+      "eklenme_tarihi": "2026-08-06",
+      "hedef_alim_fiyati": 81.35700286865234,
+      "hedef_satis_fiyati": 96.00126338500976,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 66.12789115646258,
+      "gerekce": "Momentum 33, Kâr Trendi 0, Değerleme 13, Haber 20 puan — toplam 66/100"
+    },
+    "PATEK": {
+      "eklenme_tarihi": "2026-08-06",
+      "hedef_alim_fiyati": 16.61439926147461,
+      "hedef_satis_fiyati": 18.608127172851564,
+      "tahmini_vade": "6-12 ay",
+      "toplam_puan": 55.78775510204082,
+      "gerekce": "Momentum 9, Kâr Trendi 20, Değerleme 6, Haber 20 puan — toplam 56/100"
     }
   },
   "closed": [],
-  "last_updated": "2026-08-05"
+  "last_updated": "2026-08-06"
 }
