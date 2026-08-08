@@ -411,8 +411,16 @@
       "tahmini_vade": "6-12 ay",
       "toplam_puan": 55.78775510204082,
       "gerekce": "Momentum 9, Kâr Trendi 20, Değerleme 6, Haber 20 puan — toplam 56/100"
+    },
+    "GUBRF": {
+      "eklenme_tarihi": "2026-08-08",
+      "hedef_alim_fiyati": 419.7675,
+      "hedef_satis_fiyati": 524.709375,
+      "tahmini_vade": "3-6 ay",
+      "toplam_puan": 80.51156462585034,
+      "gerekce": "Momentum 32, Kâr Trendi 20, Değerleme 8, Haber 20 puan — toplam 81/100"
     }
   },
   "closed": [],
-  "last_updated": "2026-08-07"
+  "last_updated": "2026-08-08"
 }
