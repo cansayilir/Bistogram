@@ -419,8 +419,16 @@
       "tahmini_vade": "3-6 ay",
       "toplam_puan": 80.51156462585034,
       "gerekce": "Momentum 32, Kâr Trendi 20, Değerleme 8, Haber 20 puan — toplam 81/100"
+    },
+    "TKFEN": {
+      "eklenme_tarihi": "2026-08-09",
+      "hedef_alim_fiyati": 196.45999999999998,
+      "hedef_satis_fiyati": 231.82279999999997,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 66.93877551020408,
+      "gerekce": "Momentum 27, Kâr Trendi 10, Değerleme 10, Haber 20 puan — toplam 67/100"
     }
   },
   "closed": [],
-  "last_updated": "2026-08-08"
+  "last_updated": "2026-08-09"
 }
