@@ -427,8 +427,32 @@
       "tahmini_vade": "4-8 ay",
       "toplam_puan": 66.93877551020408,
       "gerekce": "Momentum 27, Kâr Trendi 10, Değerleme 10, Haber 20 puan — toplam 67/100"
+    },
+    "TURSG": {
+      "eklenme_tarihi": "2026-08-13",
+      "hedef_alim_fiyati": 5.959600143432617,
+      "hedef_satis_fiyati": 7.032328169250488,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 73.96028681742968,
+      "gerekce": "Momentum 26, Kâr Trendi 10, Değerleme 18, Haber 20 puan — toplam 74/100"
+    },
+    "IEYHO": {
+      "eklenme_tarihi": "2026-08-13",
+      "hedef_alim_fiyati": 168.07200286865233,
+      "hedef_satis_fiyati": 198.32496338500974,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 69.18367346938776,
+      "gerekce": "Momentum 39, Kâr Trendi 0, Değerleme 10, Haber 20 puan — toplam 69/100"
+    },
+    "SISE": {
+      "eklenme_tarihi": "2026-08-13",
+      "hedef_alim_fiyati": 36.467198791503904,
+      "hedef_satis_fiyati": 40.843262646484376,
+      "tahmini_vade": "6-12 ay",
+      "toplam_puan": 55.14065085493657,
+      "gerekce": "Momentum 21, Kâr Trendi 0, Değerleme 14, Haber 20 puan — toplam 55/100"
     }
   },
   "closed": [],
-  "last_updated": "2026-08-12"
+  "last_updated": "2026-08-13"
 }
