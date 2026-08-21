@@ -451,8 +451,16 @@
       "tahmini_vade": "6-12 ay",
       "toplam_puan": 55.14065085493657,
       "gerekce": "Momentum 21, Kâr Trendi 0, Değerleme 14, Haber 20 puan — toplam 55/100"
+    },
+    "BSOKE": {
+      "eklenme_tarihi": "2026-08-21",
+      "hedef_alim_fiyati": 31.320799713134765,
+      "hedef_satis_fiyati": 36.95854366149902,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 66.70103092783505,
+      "gerekce": "Momentum 37, Kâr Trendi 0, Değerleme 10, Haber 20 puan — toplam 67/100"
     }
   },
   "closed": [],
-  "last_updated": "2026-08-20"
+  "last_updated": "2026-08-21"
 }
