@@ -459,8 +459,16 @@
       "tahmini_vade": "4-8 ay",
       "toplam_puan": 66.70103092783505,
       "gerekce": "Momentum 37, Kâr Trendi 0, Değerleme 10, Haber 20 puan — toplam 67/100"
+    },
+    "PSGYO": {
+      "eklenme_tarihi": "2026-08-24",
+      "hedef_alim_fiyati": 3.2242000627517697,
+      "hedef_satis_fiyati": 3.8045560740470883,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 61.3139502376293,
+      "gerekce": "Momentum 28, Kâr Trendi 0, Değerleme 13, Haber 20 puan — toplam 61/100"
     }
   },
   "closed": [],
-  "last_updated": "2026-08-23"
+  "last_updated": "2026-08-24"
 }
