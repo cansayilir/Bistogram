@@ -1,27 +1,27 @@
 {
   "basket": [
-    "KTLEV",
     "ODINE",
     "IEYHO",
-    "DSTKF",
-    "SKBNK",
-    "ASTOR",
-    "CVKMD",
+    "KTLEV",
     "EUPWR",
-    "BSOKE",
+    "AKSEN",
+    "ASTOR",
     "CWENE",
+    "BSOKE",
+    "TRALT",
     "SARKY",
     "ASELS",
-    "TRALT",
-    "AKSEN",
-    "MAGEN",
-    "GUBRF",
+    "TUPRS",
+    "DSTKF",
     "CCOLA",
-    "TRENJ",
+    "TKFEN",
+    "RALYH",
+    "GESAN",
     "ENJSA",
-    "RALYH"
+    "BIMAS",
+    "MAGEN"
   ],
-  "last_rebalanced": "2026-08-01",
+  "last_rebalanced": "2026-09-01",
   "history": [
     {
       "date": "2026-07-18",
@@ -80,6 +80,39 @@
         "BRSAN",
         "ECILC",
         "HALKB"
+      ]
+    },
+    {
+      "date": "2026-09-01",
+      "tut": [
+        "AKSEN",
+        "ASELS",
+        "ASTOR",
+        "BSOKE",
+        "CCOLA",
+        "CWENE",
+        "DSTKF",
+        "ENJSA",
+        "EUPWR",
+        "IEYHO",
+        "KTLEV",
+        "MAGEN",
+        "ODINE",
+        "RALYH",
+        "SARKY",
+        "TRALT"
+      ],
+      "ekle": [
+        "BIMAS",
+        "GESAN",
+        "TKFEN",
+        "TUPRS"
+      ],
+      "sat": [
+        "CVKMD",
+        "GUBRF",
+        "SKBNK",
+        "TRENJ"
       ]
     }
   ]
