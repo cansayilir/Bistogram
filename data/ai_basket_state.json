@@ -499,6 +499,14 @@
       "tahmini_vade": "4-8 ay",
       "toplam_puan": 79.68926963844925,
       "gerekce": "Momentum 35, Kâr Trendi 20, Değerleme 4, Haber 20 puan — toplam 80/100"
+    },
+    "MIATK": {
+      "eklenme_tarihi": "2026-09-02",
+      "hedef_alim_fiyati": 24.12960006713867,
+      "hedef_satis_fiyati": 27.025152075195315,
+      "tahmini_vade": "6-12 ay",
+      "toplam_puan": 57.01030927835052,
+      "gerekce": "Momentum 7, Kâr Trendi 20, Değerleme 10, Haber 20 puan — toplam 57/100"
     }
   },
   "closed": [
@@ -513,5 +521,5 @@
       "gerekce": "Momentum 27, Kâr Trendi 20, Değerleme 5, Haber 20 puan — toplam 72/100"
     }
   ],
-  "last_updated": "2026-09-01"
+  "last_updated": "2026-09-02"
 }
