@@ -54,15 +54,6 @@
       "gerekce": "Momentum 29, Kâr Trendi 20, Değerleme 13, Haber 20 puan — toplam 81/100",
       "sermaye_payi_pct": 10.0
     },
-    "VAKBN": {
-      "giris_tarihi": "2026-07-30",
-      "giris_fiyati": 29.139999389648438,
-      "giris_endeks_seviyesi": 13345.990234375,
-      "hedef_satis_fiyati": 34.3852,
-      "tahmini_vade": "4-8 ay",
-      "gerekce": "Momentum 20, Kâr Trendi 10, Değerleme 20, Haber 20 puan — toplam 70/100",
-      "sermaye_payi_pct": 10.0
-    },
     "AKSEN": {
       "giris_tarihi": "2026-07-30",
       "giris_fiyati": 98.1500015258789,
@@ -88,6 +79,15 @@
       "hedef_satis_fiyati": 40.59671830749511,
       "tahmini_vade": "4-8 ay",
       "gerekce": "Momentum 9, Kâr Trendi 20, Değerleme 17, Haber 20 puan — toplam 67/100",
+      "sermaye_payi_pct": 10.0
+    },
+    "THYAO": {
+      "giris_tarihi": "2026-09-09",
+      "giris_fiyati": 303.75,
+      "giris_endeks_seviyesi": 14541.5,
+      "hedef_satis_fiyati": 365.48139999999995,
+      "tahmini_vade": "4-8 ay",
+      "gerekce": "Momentum 14, Kâr Trendi 20, Değerleme 6, Haber 20 puan — toplam 60/100",
       "sermaye_payi_pct": 10.0
     }
   },
@@ -147,14 +147,6 @@
       "tahmini_vade": "4-8 ay",
       "toplam_puan": 60.628571428571426,
       "gerekce": "Momentum 11, Kâr Trendi 10, Değerleme 19, Haber 20 puan — toplam 61/100"
-    },
-    "THYAO": {
-      "eklenme_tarihi": "2026-07-18",
-      "hedef_alim_fiyati": 309.72999999999996,
-      "hedef_satis_fiyati": 365.48139999999995,
-      "tahmini_vade": "4-8 ay",
-      "toplam_puan": 60.15238095238095,
-      "gerekce": "Momentum 14, Kâr Trendi 20, Değerleme 6, Haber 20 puan — toplam 60/100"
     },
     "PGSUS": {
       "eklenme_tarihi": "2026-07-18",
@@ -527,7 +519,17 @@
       "getiri_pct": 28.748283910876072,
       "bist100_getiri_pct": 7.470225629320892,
       "gerekce": "Momentum 27, Kâr Trendi 20, Değerleme 5, Haber 20 puan — toplam 72/100"
+    },
+    {
+      "hisse": "VAKBN",
+      "giris_tarihi": "2026-07-30",
+      "giris_fiyati": 29.139999389648438,
+      "cikis_fiyati": 36.34000015258789,
+      "cikis_tarihi": "2026-09-09",
+      "getiri_pct": 24.70830787147218,
+      "bist100_getiri_pct": 8.957819874210227,
+      "gerekce": "Momentum 20, Kâr Trendi 10, Değerleme 20, Haber 20 puan — toplam 70/100"
     }
   ],
-  "last_updated": "2026-09-08"
+  "last_updated": "2026-09-09"
 }
