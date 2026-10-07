@@ -595,6 +595,14 @@
       "tahmini_vade": "4-8 ay",
       "toplam_puan": 68.15767402851552,
       "gerekce": "Momentum 29, Kâr Trendi 0, Değerleme 19, Haber 20 puan — toplam 68/100"
+    },
+    "LMKDC": {
+      "eklenme_tarihi": "2026-10-07",
+      "hedef_alim_fiyati": 22.09,
+      "hedef_satis_fiyati": 26.0662,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 64.92630385487527,
+      "gerekce": "Momentum 10, Kâr Trendi 20, Değerleme 15, Haber 20 puan — toplam 65/100"
     }
   },
   "closed": [
@@ -619,5 +627,5 @@
       "gerekce": "Momentum 20, Kâr Trendi 10, Değerleme 20, Haber 20 puan — toplam 70/100"
     }
   ],
-  "last_updated": "2026-10-06"
+  "last_updated": "2026-10-07"
 }
