@@ -611,6 +611,14 @@
       "tahmini_vade": "6-12 ay",
       "toplam_puan": 41.0204081632653,
       "gerekce": "Momentum 11, Kâr Trendi 0, Değerleme 10, Haber 20 puan — toplam 41/100"
+    },
+    "RYSAS": {
+      "eklenme_tarihi": "2026-10-22",
+      "hedef_alim_fiyati": 23.900799407958985,
+      "hedef_satis_fiyati": 29.87599925994873,
+      "tahmini_vade": "3-6 ay",
+      "toplam_puan": 84.3270332187858,
+      "gerekce": "Momentum 38, Kâr Trendi 20, Değerleme 6, Haber 20 puan — toplam 84/100"
     }
   },
   "closed": [
@@ -635,5 +643,5 @@
       "gerekce": "Momentum 20, Kâr Trendi 10, Değerleme 20, Haber 20 puan — toplam 70/100"
     }
   ],
-  "last_updated": "2026-10-21"
+  "last_updated": "2026-10-22"
 }
