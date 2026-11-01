@@ -619,6 +619,30 @@
       "tahmini_vade": "3-6 ay",
       "toplam_puan": 84.3270332187858,
       "gerekce": "Momentum 38, Kâr Trendi 20, Değerleme 6, Haber 20 puan — toplam 84/100"
+    },
+    "AYGAZ": {
+      "eklenme_tarihi": "2026-11-01",
+      "hedef_alim_fiyati": 252.85999999999999,
+      "hedef_satis_fiyati": 298.3748,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 69.93764172335601,
+      "gerekce": "Momentum 36, Kâr Trendi 0, Değerleme 14, Haber 20 puan — toplam 70/100"
+    },
+    "ANHYT": {
+      "eklenme_tarihi": "2026-11-01",
+      "hedef_alim_fiyati": 82.67299713134766,
+      "hedef_satis_fiyati": 97.55413661499023,
+      "tahmini_vade": "4-8 ay",
+      "toplam_puan": 69.26303854875283,
+      "gerekce": "Momentum 22, Kâr Trendi 10, Değerleme 17, Haber 20 puan — toplam 69/100"
+    },
+    "AKCNS": {
+      "eklenme_tarihi": "2026-11-01",
+      "hedef_alim_fiyati": 154.96800537109374,
+      "hedef_satis_fiyati": 173.564166015625,
+      "tahmini_vade": "6-12 ay",
+      "toplam_puan": 56.06575963718821,
+      "gerekce": "Momentum 36, Kâr Trendi 0, Değerleme 1, Haber 20 puan — toplam 56/100"
     }
   },
   "closed": [
@@ -643,5 +667,5 @@
       "gerekce": "Momentum 20, Kâr Trendi 10, Değerleme 20, Haber 20 puan — toplam 70/100"
     }
   ],
-  "last_updated": "2026-10-31"
+  "last_updated": "2026-11-01"
 }
